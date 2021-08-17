@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { Todo } from '../../todo.model';
-import { TodoService } from '../../todo.service';
+import { TodoService } from '../../services/todo.service';
 import TODO_ACTIONS, { FetchTodoError, FetchTodoSuccess } from './todo.actions';
 
 @Injectable()

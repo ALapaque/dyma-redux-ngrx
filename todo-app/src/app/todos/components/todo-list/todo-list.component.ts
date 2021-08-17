@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { State } from '../../store';
-import TODO_ACTIONS, { FetchTodo, TodoActions } from '../../store/todo/todo.actions';
-import { selectedTodoSelector, todoListSelector } from '../../store/todo/todo.selectors';
-import { Todo } from '../../todo.model';
-import { TodoService } from '../../todo.service';
+import { State } from '../../../store';
+import TODO_ACTIONS, { FetchTodo, TodoActions } from '../../store/todo.actions';
+import { selectedTodoSelector, todoListArraySelector } from '../../store/todo.selectors';
+import { Todo } from '../../../todo.model';
+import { TodoService } from '../../../services/todo.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -13,7 +13,7 @@ import { TodoService } from '../../todo.service';
   styleUrls: [ './todo-list.component.css' ]
 })
 export class TodoListComponent implements OnInit {
-  public todos$: Observable<Todo[]> = this.store.pipe(select(todoListSelector));
+  public todos$: Observable<Todo[]> = this.store.pipe(select(todoListArraySelector));
   public message: string;
   public selectedTodo$: Observable<Todo> = this.store.pipe(select(selectedTodoSelector));
 
@@ -26,7 +26,15 @@ export class TodoListComponent implements OnInit {
   }
 
   public addTodo() {
-    this.store.dispatch(new TodoActions(TODO_ACTIONS.CREATE, { message: this.message, done: false }));
+    this.store.dispatch(new TodoActions(
+        TODO_ACTIONS.CREATE,
+        {
+          id: '0',
+          message: this.message,
+          done: false
+        }
+      )
+    );
   }
 
   public toggleTodo(todo: Todo) {

@@ -2,7 +2,9 @@ import { Todo } from '../../todo.model';
 import TODO_ACTIONS, { TodoActionType } from './todo.actions';
 
 export interface TodoState {
-  data: Array<Todo>;
+  data: {
+    [todoId: number]: Todo
+  };
   loadingState: LoadingState;
 }
 
@@ -22,8 +24,6 @@ const initialState: TodoState = {
 };
 
 export function todosReducer(state: TodoState = initialState, action: TodoActionType): TodoState {
-  let index: number;
-
   switch (action.type) {
     case TODO_ACTIONS.FETCH:
       return {
@@ -36,7 +36,10 @@ export function todosReducer(state: TodoState = initialState, action: TodoAction
     case TODO_ACTIONS.FETCH_SUCCESS:
       return {
         ...state,
-        data: action.payload,
+        data: action.payload.reduce((acc, t: Todo) => {
+          acc[t.id] = t;
+          return acc;
+        }, { ...state.data }),
         loadingState: {
           ...state.loadingState,
           loading: false,
@@ -56,21 +59,33 @@ export function todosReducer(state: TodoState = initialState, action: TodoAction
     case TODO_ACTIONS.CREATE:
       return {
         ...state,
-        data: [ ...state.data, action.payload ]
+        data: {
+          ...state.data, [Object.keys(state.data).length + 1]: {
+            ...action.payload,
+            id: Object.keys(state.data).length + 1
+          }
+        }
       };
     case TODO_ACTIONS.DELETE:
-      index = state.data.findIndex((todo: Todo) => todo === action.payload);
+      const remove = { ...state.data };
+      delete remove[action.payload.id];
 
       return {
         ...state,
-        data: state.data.filter((todo: Todo, i: number) => i !== index)
+        data: remove
       };
     case TODO_ACTIONS.TOGGLE:
-      index = state.data.findIndex((todo: Todo) => todo === action.payload);
-
+      console.log(state.data);
+      console.log(state.data[action.payload.id]);
       return {
         ...state,
-        data: state.data.map((todo: Todo, i: number) => i === index ? { ...todo, done: !todo.done } : todo)
+        data: {
+          ...state.data,
+          [action.payload.id]: {
+            ...state.data[action.payload.id],
+            done: !state.data[action.payload.id].done
+          }
+        }
       };
     default:
       return state;
