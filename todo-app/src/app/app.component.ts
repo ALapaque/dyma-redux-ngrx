@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { State } from './store';
-import TODO_ACTIONS, { TodoAction } from './store/todo.action';
-import { TodoState } from './store/todo.reducer';
+import TODO_ACTIONS, { FetchTodo, TodoActions } from './store/todo/todo.actions';
+import { TodoState } from './store/todo/todo.reducer';
 import { Todo } from './todo.model';
 import { TodoService } from './todo.service';
 
@@ -13,7 +13,7 @@ import { TodoService } from './todo.service';
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css' ],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public todos$: Observable<Todo[]>;
   public message: string;
 
@@ -25,15 +25,19 @@ export class AppComponent {
     );
   }
 
+  ngOnInit(): void {
+    this.store.dispatch(new FetchTodo());
+  }
+
   public addTodo() {
-    this.store.dispatch(new TodoAction(TODO_ACTIONS.CREATE, { message: this.message, done: false }));
+    this.store.dispatch(new TodoActions(TODO_ACTIONS.CREATE, { message: this.message, done: false }));
   }
 
   public toggleTodo(todo: Todo) {
-    this.store.dispatch(new TodoAction(TODO_ACTIONS.TOGGLE, todo));
+    this.store.dispatch(new TodoActions(TODO_ACTIONS.TOGGLE, todo));
   }
 
   public deleteTodo(todo: Todo) {
-    this.store.dispatch(new TodoAction(TODO_ACTIONS.DELETE, todo));
+    this.store.dispatch(new TodoActions(TODO_ACTIONS.DELETE, todo));
   }
 }

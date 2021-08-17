@@ -1,30 +1,23 @@
 import { Injectable } from '@angular/core';
+import { Observable, timer } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Todo } from './todo.model';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class TodoService {
-  public todos$: BehaviorSubject<Todo[]> = new BehaviorSubject([
-    {
-      message: 'manger une pizza',
-      done: false,
-    },
-  ]);
 
   constructor() {
   }
 
-  public addTodo(todo: Todo) {
-    this.todos$.next([ ...this.todos$.value, todo ]);
+  public getTodo(): Observable<Array<Todo>> {
+    return timer(2000).pipe(
+      map(() => [
+        {
+          message: 'Travail',
+          done: false
+        }
+      ])
+    );
   }
 
-  public deleteTodo(index: number) {
-    this.todos$.next(this.todos$.value.filter((v, i) => i !== index));
-  }
-
-  public toggleTodo(index: number) {
-    const currentTodos = this.todos$.value;
-    currentTodos[index].done = !currentTodos[index].done;
-    this.todos$.next(currentTodos);
-  }
 }
