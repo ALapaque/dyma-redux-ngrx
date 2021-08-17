@@ -75,8 +75,6 @@ export function todosReducer(state: TodoState = initialState, action: TodoAction
         data: remove
       };
     case TODO_ACTIONS.TOGGLE:
-      console.log(state.data);
-      console.log(state.data[action.payload.id]);
       return {
         ...state,
         data: {
