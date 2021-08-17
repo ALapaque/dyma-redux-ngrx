@@ -1,20 +1,21 @@
-import { Injectable } from "@angular/core";
-import { Todo } from "./todo.model";
-import { BehaviorSubject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Todo } from './todo.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class TodoService {
   public todos$: BehaviorSubject<Todo[]> = new BehaviorSubject([
     {
-      message: "manger une pizza",
+      message: 'manger une pizza',
       done: false,
     },
   ]);
 
-  constructor() {}
+  constructor() {
+  }
 
   public addTodo(todo: Todo) {
-    this.todos$.next([...this.todos$.value, todo]);
+    this.todos$.next([ ...this.todos$.value, todo ]);
   }
 
   public deleteTodo(index: number) {
