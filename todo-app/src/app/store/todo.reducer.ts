@@ -14,7 +14,7 @@ const initialState: TodoState = {
 
 export function todosReducer(state: TodoState = initialState, action: TodoActionType): TodoState {
   let index: number;
-  console.log(state);
+
   switch (action.type) {
     case TODO_ACTIONS.CREATE:
       return {
