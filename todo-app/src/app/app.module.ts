@@ -20,6 +20,9 @@ const ROUTES: Routes = [
   },
   {
     path: 'todo', component: TodoListComponent,
+  },
+  {
+    path: 'todo/:id', component: TodoListComponent
   }
 ];
 

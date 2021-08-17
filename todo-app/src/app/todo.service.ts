@@ -13,8 +13,14 @@ export class TodoService {
     return timer(2000).pipe(
       map(() => [
         {
+          id: 1,
           message: 'Travail',
           done: false
+        },
+        {
+          id: 2,
+          message: 'Cinéma',
+          done: false,
         }
       ])
     );
