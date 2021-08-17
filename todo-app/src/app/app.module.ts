@@ -7,7 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
-import { effects, reducers } from './store';
+import { effects, metaReducers, reducers } from './store';
 import { CustomRouterStateSerializer } from './store/router/router.helper';
 
 const ROUTES: Routes = [
@@ -23,7 +23,7 @@ const ROUTES: Routes = [
   declarations: [ AppComponent ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({
       name: 'todoApp'
     }),
