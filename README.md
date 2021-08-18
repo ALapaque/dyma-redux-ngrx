@@ -2,9 +2,9 @@
 
 # project using redux architecture and implementing NgRx
 
-**
 
-![Angular](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/1200px-Angular_full_color_logo.svg.png =250x250) ![redux](https://grafikart.fr/uploads/icons/redux.svg =250x250) ![NgRx](https://ngrx.io/assets/images/badge.svg =250x250)
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/1200px-Angular_full_color_logo.svg.png" width="100" height="100"> <img src="https://grafikart.fr/uploads/icons/redux.svg" width="100" height="100"> <img src="https://ngrx.io/assets/images/badge.svg" width="100" height="100">
 
 ## visit -> https://alapaque.github.io/dyma-redux-ngrx/todo
 
