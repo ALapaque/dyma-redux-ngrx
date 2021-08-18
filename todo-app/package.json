@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "npx angular-cli-ghpages — dir=dist/todo-app"
+    "deploy": "ng deploy --base-href=/dyma-redux-ngrx"
   },
   "private": true,
   "dependencies": {
